@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect
 from dbs import db
-from sqlalchemy import or_
 from models import Student
 import config
 
