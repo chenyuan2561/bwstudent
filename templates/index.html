@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理系统</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="jumbotron jumbotron-fluid" style="margin: 30px 0 30px">
+    <div class="container">
+        <h1 class="display-4"><a href="{{ url_for('index') }}" style="color: black;text-decoration: none">学生信息管理系统</a></h1>
+    </div>
+</div>
+<div style="width: 1200px;text-align: center;margin: 0 auto">
+    <form action="" method="post">
+        <div class="form-group" style="margin-bottom: 10px">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="请输入学生ID或姓名" name="text">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">搜索</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div style="margin: 50px 0 0;">
+    <a href="{{ url_for("add_student") }}" class="btn btn-primary btn-lg"
+       style="float: left;cursor:pointer;">录入学生信息</a>
+    <p class="lead" style="float: right;margin: 0 30px;line-height: 48px">
+        共有{{ student | length }}名学生</p>
+</div>
+<div>
+    <table class="table table-hover" style="line-height: 40px">
+        <thead>
+            <tr>
+                <th scope="col">学号</th>
+                <th scope="col">姓名</th>
+                <th scope="col">英语成绩</th>
+                <th scope="col">python成绩</th>
+                <th scope="col">C语言成绩</th>
+                <th scope="col">总成绩</th>
+                <th scope="col">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in student %}
+                <tr>
+                    <th scope="row">{{ s.id }}</th>
+                    <td>{{ s.name }}</td>
+                    <td>{{ s.english }}</td>
+                    <td>{{ s.python }}</td>
+                    <td>{{ s.c }}</td>
+                    <td>{{ s.score }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ url_for('mod_student', mod=s.id) }}" role="button">修改</a>
+                        <a class="btn btn-primary" href="{{ url_for('del_student', del=s.id) }}" role="button">删除</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            <p style="color: red">{{ err }}</p>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
